@@ -101,7 +101,7 @@ class Hero(object):
     def hero_stats(self):
         if self.deaths > 0:
             KD = self.kills // self.deaths
-            sys.stdout.write("Hero: " + self.name + "has a " + KD + " K/D")
+            sys.stdout.write("Hero: " + self.name + "has a " + str(KD)+ " K/D")
         else:
             sys.stdout.write(
                 f"Hero: {self.name} had a KD ratio of {self.kills}")
@@ -130,6 +130,7 @@ class Hero(object):
     def fight(self, opponent):
         if not self.abilities and not opponent.abilities:
             sys.stdout.write('\x1b[1;31m' + 'Draw!' + '\x1b[0m')
+
         else:
             while True:
                 if self.is_alive():
@@ -180,9 +181,9 @@ class Team(object):
         '''
         descrption: Battle each team against each other
         '''
-        while len(self.team_alive()) > 0 and len(opposing.alive_heroes()) > 0:
+        while len(self.team_alive()) > 0 and len(opposing.team_alive()) > 0:
             hero = choice(self.team_alive())
-            enemy = choice(opposing.alive_heroes())
+            enemy = choice(opposing.team_alive())
             hero.fight(enemy)
 
     def team_alive(self):
@@ -303,7 +304,7 @@ class Arena(object):
         sys.stdout.write('\x1b[1;32m' +
                          " How many heros on team two?" + '\x1b[0m' + '\n')
         num_of_heros = user_input()
-        for i in range(num_of_heros):
+        for i in range(int(num_of_heros)):
             hero = self.create_hero()
             self.team_two.add_hero(hero)
 
